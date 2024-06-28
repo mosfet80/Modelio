@@ -21,7 +21,7 @@ package org.modelio.xmi.gui;
 
 import java.io.File;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.IProgressService;
 import org.modelio.platform.project.services.IProjectService;

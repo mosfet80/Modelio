@@ -20,7 +20,7 @@
 package org.modelio.model.browser.view.context;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.di.annotations.Creatable;

@@ -21,8 +21,8 @@ package org.modelio.app.ui.progress;
 
 import java.lang.reflect.InvocationTargetException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.ui.services.IServiceConstants;

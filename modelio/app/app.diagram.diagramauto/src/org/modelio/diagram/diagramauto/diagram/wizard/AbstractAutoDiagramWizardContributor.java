@@ -20,7 +20,7 @@
 package org.modelio.diagram.diagramauto.diagram.wizard;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.modelio.api.module.contributor.diagramcreation.AbstractDiagramWizardContributor;
 import org.modelio.api.ui.viewtemplate.IModelViewTemplate;

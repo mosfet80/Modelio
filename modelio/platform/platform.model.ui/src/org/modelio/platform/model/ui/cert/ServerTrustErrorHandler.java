@@ -24,7 +24,7 @@ import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.net.ssl.SSLHandshakeException;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;

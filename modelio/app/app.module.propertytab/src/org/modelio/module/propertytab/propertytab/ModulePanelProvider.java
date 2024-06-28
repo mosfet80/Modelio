@@ -22,7 +22,7 @@ package org.modelio.module.propertytab.propertytab;
 import java.util.Arrays;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;

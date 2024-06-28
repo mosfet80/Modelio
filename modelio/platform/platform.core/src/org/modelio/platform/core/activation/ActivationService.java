@@ -20,7 +20,7 @@
 package org.modelio.platform.core.activation;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.swt.widgets.Display;
 import org.modelio.platform.core.IModelioEventService;
 import org.modelio.platform.core.events.ModelioEvent;

@@ -21,7 +21,7 @@ package org.modelio.editors.texteditors.txt;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import javax.annotation.PreDestroy;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;

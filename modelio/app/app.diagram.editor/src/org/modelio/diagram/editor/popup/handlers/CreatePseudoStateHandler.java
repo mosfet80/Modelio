@@ -20,7 +20,7 @@
 package org.modelio.diagram.editor.popup.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.eclipse.jface.viewers.ISelection;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.KindOfStateMachine;
 import org.modelio.metamodel.uml.behavior.stateMachineModel.Region;

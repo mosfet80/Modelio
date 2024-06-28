@@ -20,7 +20,7 @@
 package org.modelio.bpmn.ui.browser.handlers;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.modelio.bpmn.diagram.editor.layout.BpmnLayouter;
 import org.modelio.metamodel.bpmn.activities.BpmnAdHocSubProcess;

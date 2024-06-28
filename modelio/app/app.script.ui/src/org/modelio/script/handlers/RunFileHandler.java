@@ -21,7 +21,7 @@ package org.modelio.script.handlers;
 
 import java.nio.file.Paths;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import javax.script.ScriptException;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
